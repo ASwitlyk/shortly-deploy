@@ -41,7 +41,8 @@
   });
 </script>
 
-<% if (process.env.NODE_ENV !== 'production' ){ %>
+<% if (process.env.NODE_ENV === 'production' ){ %>
+  <script src='clientjs.min.js'></script> <% } else { %>
   <script src='/client/app.js'></script>
   <script src='/client/link.js'></script>
   <script src='/client/links.js'></script>

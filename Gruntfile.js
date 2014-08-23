@@ -20,9 +20,6 @@ module.exports = function(grunt) {
       }
     },
 
-    uglify: {
-    },
-
     jshint: {
       files: [
          'test/ServerSpec.js'
@@ -63,18 +60,24 @@ module.exports = function(grunt) {
     },
 
     concat: {
-        dist: {
-          src: ['public/lib/handlebars.js','public/lib/underscore.js', 'public/lib/jquery.js',
-                'public/lib/backbone.js', 'public/client/app.js', 'public/client/link.js',
-                'public/client/links.js', 'public/client/linkView.js', 'public/client/linksView.js',
-                'public/client/createLinkView.js', 'public/client/router.js'],
-          dest: 'public/allFiles.js',
+        lib: {
+          src: ['public/lib/jquery.js', 'public/lib/underscore.js',
+                'public/lib/backbone.js', 'public/lib/handlebars.js'],
+          dest: 'public/dependencies.js'
+        },
+        clientjs: {
+          src: ['public/client/app.js', 'public/client/link.js',
+                'public/client/links.js', 'public/client/linkView.js',
+                'public/client/linksView.js', 'public/client/createLinkView.js',
+                'public/client/router.js'],
+          dest: 'public/clientjs.js'
         }
     },
     uglify: {
-    my_target: {
-      files: {
-        'public/allFiles.min.js': ['public/allFiles.js']
+      my_target: {
+        files: {
+          'public/dependencies.min.js': ['public/dependencies.js'],
+          'public/clientjs.min.js' : ['public/clientjs.js']
       }
     }
   }
@@ -124,7 +127,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('deploy', [ 'concat', 'uglify'
+  grunt.registerTask('deploy', [ 'concat:lib', 'concat:clientjs', 'uglify'
     // add your deploy tasks here
   ]);
 
