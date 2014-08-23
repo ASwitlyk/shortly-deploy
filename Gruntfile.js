@@ -61,6 +61,13 @@ module.exports = function(grunt) {
       prodServer: {
       }
     },
+
+    concat: {
+        dist: {
+          src: ['public/**/*.js'],
+          dest: 'public/allFiles.js',
+        }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -71,6 +78,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
@@ -104,7 +112,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('deploy', [
+  grunt.registerTask('deploy', [ 'concat'
     // add your deploy tasks here
   ]);
 
